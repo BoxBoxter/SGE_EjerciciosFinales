@@ -17,7 +17,7 @@
                 </field>
         </field>
         </record>
-        <record id="view_form_todo_task" model="ir.ui.view">
+        <record id="view_form_libro_task" model="ir.ui.view">
             <field name="name">Libre Task form – Libro extension</field>
             <field name="model">libro.task</field>
             <field name="arch" type="xml">
@@ -48,6 +48,19 @@
                         </group>
                     </sheet>
                 </form>
+            </field>
+        </record>
+        <record id="view_filter_libro_task" model="ir.ui.view">
+            <field name="name">Libros Task Filter</field>
+            <field name="model">libro.task</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter name="revisados" string="Revisados" domain="[('revisado','=',True)]"/>
+                    <filter name="aprobados" string="Aprobados" domain="[('aprobado','=','si')]"/>
+                    <filter name="pendientes" string="Pendientes" domain="[('aprobado','=','pendiente')]"/>
+                    <filter name="noAprobados" string="No Aprobados" domain="[('aprobado','=','no')]"/>
+                </search>
             </field>
         </record>
         <act_window
