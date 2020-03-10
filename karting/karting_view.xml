@@ -116,9 +116,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Agendas">
-                    <field name="date" string="Fecha"/>
-                    <field name="circuit_id" string="Circuito"/>
-                    <!--<field name="obs" string="Observaciones"/>-->
+                    <field name="name" string="Fecha"/>
                 </tree>
             </field>
         </record>
