@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_karting_racer_form">
+            <field name="name">karting.racer.form</field>
+            <field name="model">karting.racer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Corredor">
+                    <group colspan="2" col="4">
+                        <field name="first_name" select="1" colspan="2" string="Nombre"/>
+                        <field name="last_name" colspan="2" string="Apellidos"/>
+                        <field name="birthdate" string="Fecha Nacimiento"/>
+                        <!--<field name="of_legal_age"/>-->
+                        <field name="phone" string="Telefono"/>
+                        <field name="active"/>
+                        <field name="email" widget="email" colspan="4"/>
+                    </group>
+                    <group colspan="2" col="2">
+                        <separator string="Direccion" colspan="2"/>
+                        <field name="address" colspan="2" nolabel="1" string="Calle"/>
+                        <group colspan="2" col="4">
+                            <field name="zip" select="0" string="Codigo Postal"/>
+                            <field name="city" select="0" string="Ciudad"/>
+                            <field name="state_id" select="0" string="Provincia"/>
+                            <field name="country_id" select="0" string="Pais"/>
+                        </group>
+                    </group>
+                    <separator string="Carreras" colspan="4"/>
+                    <field name="race_ids" colspan="4" nolabel="1">
+                        <tree>
+                            <field name="diary_id" string="Diario"/>
+                            <field name="kart_type_id" string="Kart"/>
+                            <field name="group_id" string="Grupo"/>
+                            <field name="tutor" string="Tutor"/>
+                            <!--<field name="tutor_doc"/>-->
+                            <field name="round_id" string="Ronda"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_racer_tree">
+            <field name="name">karting.racer.tree</field>
+            <field name="model">karting.racer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Corredores">
+                    <field name="fullName" string="Nombre corredor"/>
+                    <field name="birthdate" string="Fecha Nacimiento"/>
+                    <field name="phone" string="Telefono"/>
+                    <field name="email" string="Email"/>
+                    <field name="address" string="Direccion"/>
+                    <field name="zip" string="Codigo Postal"/>
+                    <field name="city" string="Ciudad"/>
+                    <field name="state_id" string="Provincia"/>
+                    <field name="country_id" string="Pais"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_karting_racer">
+            <field name="name">Corredores</field>
+            <field name="res_model">karting.racer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Falta documento tutor, i mayor de edad no se ve el concat del nombre-->
+
+        <record model="ir.actions.act_window" id="action_karting_diary">
+            <field name="name">Diario</field>
+            <field name="res_model">karting.diary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_diary_form">
+            <field name="name">karting.diary.form</field>
+            <field name="model">karting.diary</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Agenda">
+                    <field name="date" select="1">Fecha</field>
+                    <field name="circuit_id" select="1" string="Circuito"/>
+                    <field name="obs" colspan="4" string="Observaciones"/>
+                    <notebook colspan="4">
+                        <page string="Corredores">
+                            <field name="racer_ids" colspan="4" nolabel="1">
+                                <tree>
+                                    <field name="racer_id" string="Corredor"/>
+                                    <field name="kart_type_id" string="Kart"/>
+                                    <field name="group_id" string="Grupo"/>
+                                    <field name="tutor" string="Tutor"/>
+                                    <!--<field name="tutor_doc"/>-->
+                                    <field name="round_id" string="Ronda"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Rondas">
+                            <field name="rounds_ids" colspan="4" nolabel="1">
+                                <tree>
+                                    <field name="name" string="Ronda"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="active"/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_diary_tree">
+            <field name="name">karting.diary.tree</field>
+            <field name="model">karting.diary</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Agendas">
+                    <field name="date" string="Fecha"/>
+                    <field name="circuit_id" string="Circuito"/>
+                    <!--<field name="obs" string="Observaciones"/>-->
+                </tree>
+            </field>
+        </record>
+        <!-- Falta nombre ciurcuito y que se vean los campos en form-->
+
+        <record model="ir.actions.act_window" id="action_karting_diary_racer">
+            <field name="name">Corredores del dia</field>
+            <field name="res_model">karting.diary.racer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_diary_racer_tree">
+            <field name="name">karting.diary.racer.tree</field>
+            <field name="model">karting.diary.racer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Carreras Dia">
+                    <field name="racer_id" string="Corredor"/>
+                    <field name="diary_id" string="Diario"/>
+                    <field name="kart_type_id" string="Tipo Kart"/>
+                    <field name="group_id" string="Grupo"/>
+                    <field name="tutor" string="Tutor"/>
+                    <!--<field name="tutor_doc"/>-->
+                    <field name="round_id" string="Ronda"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_diary_racer_form">
+            <field name="name">karting.diary.racer.form</field>
+            <field name="model">karting.diary.racer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Corredores del dia">
+                    <group>
+                        <field name="racer_id" select="1" string="Corredor"/>
+                        <field name="diary_id" select="1" string="Diario"/>
+                    </group>
+
+                    <group colspan="2" col="2">
+                        <field name="kart_type_id" string="Kart"/>
+                        <field name="group_id" string="Grupo"/>
+                    </group>
+                    <group colspan="2" col="4">
+                        <!--<field name="racer_birthdate" />
+                        <field name="of_legal_age"/>-->
+                        <field name="tutor" /><!--attrs="{'readonly':[('of_legal_age','=',True)],
+                                            'required':[('of_legal_age','=',False)]}"/>
+                        <field name="tutor_doc" attrs="{'readonly':[('of_legal_age','=',True)],
+                                                'required':[('of_legal_age','=',False)]}"/>-->
+                    </group>
+                    <separator string="Ronda Asignada" colspan="4"/>
+                    <group>
+                        <field name="round_id" colspan="4" nolabel="1" string="Ronda"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!--Falta Tutor doc -->
+
+        <record model="ir.actions.act_window" id="action_karting_racer_group">
+            <field name="name">Race Groups</field>
+            <field name="res_model">karting.racer.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_racer_group_form">
+            <field name="name">karting.racer.group.form</field>
+            <field name="model">karting.racer.group</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Grupo Corredores">
+                    <field name="name" select="1"/>
+                    <field name="race_ids" colspan="4" nolabel="1">
+                        <separator string="Corredores" colspan="4"/>
+                        <tree>
+                            <field name="racer_id" string="Corredor"/>
+                            <field name="diary_id" string="Diario"/>
+                            <field name="kart_type_id" string="Kart"/>
+                            <field name="tutor" string="Tutor"/>
+                            <!--<field name="tutor_doc"/>-->
+                            <field name="round_id" string="Ronda"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_racer_group_tree">
+            <field name="name">karting.racer.group.tree</field>
+            <field name="model">karting.racer.group</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Grupo Corredores">
+                    <field name="name" string="Grupo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_karting_round_form">
+            <field name="name">karting.round.form</field>
+            <field name="model">karting.round</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Ronda">
+                    <field name="tiempo" widget="float_time" select="1"/>
+                    <field name="diary_id" select="1"/>
+                    <separator string="Corredores" colspan="4"/>
+                    <field name="racer_ids" colspan="4" nolabel="1">
+                        <tree>
+                            <field name="racer_id" string="Corredor"/>
+                            <field name="diary_id" string="Diario"/>
+                            <field name="kart_type_id" string="Kart"/>
+                            <field name="group_id" string="Grupo"/>
+                            <field name="tutor" string="Tutor"/>
+                            <!--<field name="tutor_doc"/>-->
+                        </tree>
+                    </field>
+
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_round_tree">
+            <field name="name">karting.round.tree</field>
+            <field name="model">karting.round</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Rondas">
+                    <field name="name" string="Ronda"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_karting_round">
+            <field name="name">Rondas</field>
+            <field name="res_model">karting.round</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Falta tutor doc-->
+
+        <record model="ir.ui.view" id="view_karting_kart_type_form">
+            <field name="name">karting.kart_type.form</field>
+            <field name="model">karting.kart_type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tipo Kart">
+                    <field name="name" select="1" string="Nombre"/>
+                    <field name="cilinder_capacity" select="1" string="Cilindrada"/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_kart_type_tree">
+            <field name="name">karting.kart_type.tree</field>
+            <field name="model">karting.kart_type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de kart">
+                    <field name="name" string="Nombre"/>
+                    <field name="cilinder_capacity" string="Cilindrada"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_karting_kart_type">
+            <field name="name">Tipos de karts</field>
+            <field name="res_model">karting.kart_type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Falta ver nombre en formulario-->
+
+        <record model="ir.ui.view" id="view_karting_circuit_form">
+            <field name="name">karting.circuit.form</field>
+            <field name="model">karting.circuit</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Circuito">
+                    <field name="name" select="1"/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_karting_circuit_tree">
+            <field name="name">karting.circuit.tree</field>
+            <field name="model">karting.circuit</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Circuitos">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_karting_circuit">
+            <field name="name">Circuits</field>
+            <field name="res_model">karting.circuit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <menuitem name="Karting" id="menu_karting"/>
+        <menuitem name="Corredores" id="menu_karting_racer" action="action_karting_racer" parent="menu_karting"/>
+        <menuitem name="Diario" id="menu_karting_diary" action="action_karting_diary" parent="menu_karting"/>
+        <menuitem name="Corredores del dia" id="menu_karting_diary_racer" action="action_karting_diary_racer"
+                  parent="menu_karting"/>
+        <menuitem name="Grupo Corredores" id="menu_karting_racer_group" action="action_karting_racer_group" parent="menu_karting"/>
+        <menuitem name="Rondas" id="menu_karting_round" action="action_karting_round" parent="menu_karting"/>
+        <menuitem name="Tipos de karts" id="menu_karting_kart_type" action="action_karting_kart_type" parent="menu_karting"/>
+        <menuitem name="Ciurcuitos" id="menu_karting_circuit" action="action_karting_circuit" parent="menu_karting"/>
+    </data>
+</odoo>
