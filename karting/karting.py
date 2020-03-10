@@ -6,8 +6,6 @@ class Circuit(models.Model):
     _name = 'karting.circuit'
     name = fields.Char('Circuit', size=15, required=True)
 
-
-
 class Racer(models.Model):
     _name = 'karting.racer'
 

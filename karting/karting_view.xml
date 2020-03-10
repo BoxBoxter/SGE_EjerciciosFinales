@@ -80,9 +80,11 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Agenda">
-                    <field name="date" select="1">Fecha</field>
-                    <field name="circuit_id" select="1" string="Circuito"/>
-                    <field name="obs" colspan="4" string="Observaciones"/>
+                    <group>
+                        <field name="date" select="1">Fecha</field>
+                        <field name="circuit_id" select="1" string="Circuito"/>
+                        <field name="obs" colspan="4" string="Observaciones"/>
+                    </group>
                     <notebook colspan="4">
                         <page string="Corredores">
                             <field name="racer_ids" colspan="4" nolabel="1">
@@ -154,7 +156,6 @@
                         <field name="racer_id" select="1" string="Corredor"/>
                         <field name="diary_id" select="1" string="Diario"/>
                     </group>
-
                     <group colspan="2" col="2">
                         <field name="kart_type_id" string="Kart"/>
                         <field name="group_id" string="Grupo"/>
@@ -188,7 +189,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Grupo Corredores">
-                    <field name="name" select="1"/>
+                    <group>
+                        <field name="name" select="1" string="Grupo"/>
+                    </group>
                     <field name="race_ids" colspan="4" nolabel="1">
                         <separator string="Corredores" colspan="4"/>
                         <tree>
@@ -220,8 +223,10 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Ronda">
-                    <field name="tiempo" widget="float_time" select="1"/>
-                    <field name="diary_id" select="1"/>
+                    <group>
+                        <field name="tiempo" widget="float_time" select="1"/>
+                        <field name="diary_id" select="1"/>
+                    </group>
                     <separator string="Corredores" colspan="4"/>
                     <field name="racer_ids" colspan="4" nolabel="1">
                         <tree>
@@ -261,8 +266,10 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Tipo Kart">
-                    <field name="name" select="1" string="Nombre"/>
-                    <field name="cilinder_capacity" select="1" string="Cilindrada"/>
+                    <group>
+                        <field name="name" select="1" string="Nombre"/>
+                        <field name="cilinder_capacity" select="1" string="Cilindrada"/>
+                    </group>
                 </form>
             </field>
         </record>
@@ -292,7 +299,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Circuito">
-                    <field name="name" select="1"/>
+                    <group>
+                        <field name="name" select="1"/>
+                    </group>
                 </form>
             </field>
         </record>
