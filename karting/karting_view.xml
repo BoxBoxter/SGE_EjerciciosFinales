@@ -12,7 +12,6 @@
                         <field name="first_name" select="1" colspan="2" string="Nombre"/>
                         <field name="last_name" colspan="2" string="Apellidos"/>
                         <field name="birthdate" string="Fecha Nacimiento"/>
-                        <!--<field name="of_legal_age"/>-->
                         <field name="phone" string="Telefono"/>
                         <field name="active"/>
                         <field name="email" widget="email" colspan="4"/>
@@ -34,7 +33,6 @@
                             <field name="kart_type_id" string="Kart"/>
                             <field name="group_id" string="Grupo"/>
                             <field name="tutor" string="Tutor"/>
-                            <!--<field name="tutor_doc"/>-->
                             <field name="round_id" string="Ronda"/>
                         </tree>
                     </field>
@@ -66,7 +64,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!-- Falta documento tutor, i mayor de edad no se ve el concat del nombre-->
 
         <record model="ir.actions.act_window" id="action_karting_diary">
             <field name="name">Diario</field>
@@ -93,7 +90,6 @@
                                     <field name="kart_type_id" string="Kart"/>
                                     <field name="group_id" string="Grupo"/>
                                     <field name="tutor" string="Tutor"/>
-                                    <!--<field name="tutor_doc"/>-->
                                     <field name="round_id" string="Ronda"/>
                                 </tree>
                             </field>
@@ -106,7 +102,10 @@
                             </field>
                         </page>
                     </notebook>
-                    <field name="active"/>
+                    <group>
+                        <field name="active"/>
+                    </group>
+
                 </form>
             </field>
         </record>
@@ -120,7 +119,6 @@
                 </tree>
             </field>
         </record>
-        <!-- Falta nombre ciurcuito y que se vean los campos en form-->
 
         <record model="ir.actions.act_window" id="action_karting_diary_racer">
             <field name="name">Corredores del dia</field>
@@ -139,7 +137,6 @@
                     <field name="kart_type_id" string="Tipo Kart"/>
                     <field name="group_id" string="Grupo"/>
                     <field name="tutor" string="Tutor"/>
-                    <!--<field name="tutor_doc"/>-->
                     <field name="round_id" string="Ronda"/>
                 </tree>
             </field>
@@ -159,12 +156,12 @@
                         <field name="group_id" string="Grupo"/>
                     </group>
                     <group colspan="2" col="4">
-                        <!--<field name="racer_birthdate" />
-                        <field name="of_legal_age"/>-->
-                        <field name="tutor" /><!--attrs="{'readonly':[('of_legal_age','=',True)],
-                                            'required':[('of_legal_age','=',False)]}"/>
-                        <field name="tutor_doc" attrs="{'readonly':[('of_legal_age','=',True)],
-                                                'required':[('of_legal_age','=',False)]}"/>-->
+                        <field name="cumple" />
+                        <field name="major_edad"/>
+                        <field name="tutor" attrs="{'readonly':[('major_edad','=',True)],
+                                            'required':[('major_edad','=',False)]}"/>
+                        <field name="tutor_doc" attrs="{'readonly':[('major_edad','=',True)],
+                                                'required':[('major_edad','=',False)]}"/>
                     </group>
                     <separator string="Ronda Asignada" colspan="4"/>
                     <group>
@@ -173,7 +170,6 @@
                 </form>
             </field>
         </record>
-        <!--Falta Tutor doc -->
 
         <record model="ir.actions.act_window" id="action_karting_racer_group">
             <field name="name">Race Groups</field>
@@ -197,7 +193,6 @@
                             <field name="diary_id" string="Diario"/>
                             <field name="kart_type_id" string="Kart"/>
                             <field name="tutor" string="Tutor"/>
-                            <!--<field name="tutor_doc"/>-->
                             <field name="round_id" string="Ronda"/>
                         </tree>
                     </field>
@@ -233,7 +228,6 @@
                             <field name="kart_type_id" string="Kart"/>
                             <field name="group_id" string="Grupo"/>
                             <field name="tutor" string="Tutor"/>
-                            <!--<field name="tutor_doc"/>-->
                         </tree>
                     </field>
 
@@ -256,7 +250,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!--Falta tutor doc-->
 
         <record model="ir.ui.view" id="view_karting_kart_type_form">
             <field name="name">karting.kart_type.form</field>
@@ -289,7 +282,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!-- Falta ver nombre en formulario-->
 
         <record model="ir.ui.view" id="view_karting_circuit_form">
             <field name="name">karting.circuit.form</field>
@@ -321,12 +313,10 @@
         </record>
 
 
-
         <menuitem name="Karting" id="menu_karting"/>
         <menuitem name="Corredores" id="menu_karting_racer" action="action_karting_racer" parent="menu_karting"/>
         <menuitem name="Diario" id="menu_karting_diary" action="action_karting_diary" parent="menu_karting"/>
-        <menuitem name="Corredores del dia" id="menu_karting_diary_racer" action="action_karting_diary_racer"
-                  parent="menu_karting"/>
+        <menuitem name="Corredores del dia" id="menu_karting_diary_racer" action="action_karting_diary_racer" parent="menu_karting"/>
         <menuitem name="Grupo Corredores" id="menu_karting_racer_group" action="action_karting_racer_group" parent="menu_karting"/>
         <menuitem name="Rondas" id="menu_karting_round" action="action_karting_round" parent="menu_karting"/>
         <menuitem name="Tipos de karts" id="menu_karting_kart_type" action="action_karting_kart_type" parent="menu_karting"/>

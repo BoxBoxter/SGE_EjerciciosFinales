@@ -49,9 +49,24 @@ class Diary(models.Model):
     active = fields.Boolean('Active', default=True)
 
 class DiaryRacer(models.Model):
+
+    def major(self):
+        for test in self:
+            if str(parser.parse(test.diary_id.date) - relativedelta.relativedelta(years=18)) >= test.racer_id.birthdate:
+                return True
+            else:
+                return False
+
+    def cumple_func(self):
+        for test in self:
+            for x in test.racer_id:
+                return x.birthdate
+
     _name = 'karting.diary.racer'
     racer_id = fields.Many2one('karting.racer', 'Racer', required=True)
     diary_id = fields.Many2one('karting.diary', 'Diary', required=True)
+    major_edad = fields.Boolean(compute='major', string='Edad', default=False)
+    cumple = fields.Date(compute='cumple_func', string='Cumple', store=True)
     kart_type_id = fields.Many2one('karting.kart_type', 'Type of kart', required=True)
     group_id = fields.Many2one('karting.racer.group', 'Group')
     tutor = fields.Char('Tutor', size=40)
@@ -73,14 +88,12 @@ class Round(models.Model):
     name = fields.Char(compute='comp_name', string='Ronda', store=True)
     tiempo = fields.Float('Inicio')
     diary_id = fields.Many2one('karting.diary', 'Diary')
-    #diary_name = fields.related('diary_id', 'name')
     racer_ids = fields.One2many('karting.diary.racer', 'round_id', 'Racers', readonly = True)
 
     @api.depends('diary_id')
     def comp_name(self):
-        ronda = {}
         for test in self:
-            test.name = "Funcion " +"%02d:%02d" % (int(test.tiempo),(test.tiempo-int(test.tiempo))*60)
-
+            prueba = "Circuito: " + test.diary_id.name
+            test.name = ("Tiempo: ", "%02d:%02d" % (int(test.tiempo), (test.tiempo - int(test.tiempo)) * 60), prueba)
 
 
